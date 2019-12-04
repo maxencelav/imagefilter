@@ -65,6 +65,7 @@ public class App {
                     filtersList.add(new GreyFilter());
                     filtersList.add(new BlurFilter(3));
                     filtersList.add(new DilateFilter(6));
+                   // filtersList.add(new TextFilter("Centeam"));
 
                     for (Filter fi : filtersList) {
                         image = fi.process(image);
