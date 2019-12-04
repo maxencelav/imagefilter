@@ -1,7 +1,8 @@
 package org.jmll.imagefilter;
 
-import javafx.css.FontFace;
-import javafx.scene.effect.GaussianBlur;
+//import javafx.css.FontFace;
+//import javafx.scene.effect.GaussianBlur;
+
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Kernel;
 import org.bytedeco.opencv.opencv_core.Mat;
@@ -18,35 +19,77 @@ import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
 import static org.bytedeco.opencv.global.opencv_imgproc.*;
 
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public class App {
+
+    // File est dossier qui contient les images
+    static String directoryName = "imgs";
+    static final File dir = new File(directoryName + "/");
+
+    // array des extensions supportées
+    static final String[] EXTENSIONS = new String[]{
+            "png", "bmp", "jpg", "jpeg" // and other formats you need
+    };
+
+    // filter to identify images based on their extensions
+    static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
+        @Override
+        public boolean accept(final File dir, final String name) {
+            for (final String ext : EXTENSIONS) {
+                if (name.endsWith("." + ext)) {
+                    return (true);
+                }
+            }
+            return (false);
+        }
+    };
+
 
     public static void main(String[] args) {
 
-        // Read the image
+        if (dir.isDirectory()) { // make sure it's a directory
+            for (final File f : dir.listFiles(IMAGE_FILTER)) {
 
-        new Mat();
-        Mat image = imread("imgs/test_image.png");
-        //
-        if (image != null) {
+                BufferedImage img = null;
 
-            // Blur
-            GaussianBlur(image, image, new Size(3, 3), 0);
+                String imageFilename = f.getName();
 
-           // N&B
-           cvtColor(image, image, CV_RGB2GRAY);
+                // Read the image
+                new Mat();
+                Mat image = imread(f.getAbsolutePath());
+                //
 
-            // Dilatation
-           Mat kernel;
-           kernel = Mat.ones(40,35, 2).asMat();
-           dilate(image, image, kernel);
+                if (image != null) {
 
-            // Add team name (bonus)
-           // Imgproc.putText(image, "Centeam", new Point(50, 50), CV_FONT_HERSHEY_PLAIN, 3, new Scalar());
+                    // Blur
+                    GaussianBlur(image, image, new Size(11, 11), 0);
 
-            // Writing the image
-            imwrite("output/test_image.png", image);
-            System.out.println("Filter added!");
+                    // N&B
+                    cvtColor(image, image, CV_RGB2GRAY);
+
+                    // Dilatation
+                    Mat kernel;
+                    kernel = Mat.ones(40, 35, 2).asMat();
+                    dilate(image, image, kernel);
+
+                    // Add team name (bonus)
+                    // Imgproc.putText(image, "Centeam", new Point(50, 50), CV_FONT_HERSHEY_PLAIN, 3, new Scalar());
+
+                    // Writing the image
+                    imwrite("output/"+imageFilename, image);
+                    System.out.println("Filter added!");
+
+                }
+
+
+            }
         }
+
 
     }
 
