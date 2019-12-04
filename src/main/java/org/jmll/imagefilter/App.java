@@ -1,12 +1,5 @@
 package org.jmll.imagefilter;
 
-<<<<<<< Updated upstream
-=======
-
-//import javafx.css.FontFace;
-//import javafx.scene.effect.GaussianBlur;
-
->>>>>>> Stashed changes
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Kernel;
 import org.bytedeco.opencv.opencv_core.Mat;
@@ -73,7 +66,7 @@ public class App {
 
                 String msgAddingFilters = "Adding filters to: " + f.getAbsolutePath() ;
                 System.out.print(msgAddingFilters + " => ");
-                Logger.log(msgAddingFilters);
+                Logger.log(msgAddingFilters,false);
                 //
 
                 try {
@@ -82,14 +75,14 @@ public class App {
                     Filters.toDilate(image,8);
                 }
                 catch(FileNotFoundException e){
-                    System.out.println("An error occurred : file not found");
+                    Logger.log("An error occurred : file not found",true);
                     e.printStackTrace();
                 }
                 
                     // Writing the image
                     imwrite("output/"+imageFilename, image);
-                    System.out.println("\u001B[32m"+"SUCESS\n"+"\u001B[0m"+
-                            "Output image: "+"output/"+imageFilename);
+                    Logger.log("\u001B[32m"+"SUCESS\n"+"\u001B[0m"+
+                            "Output image: "+"output/"+imageFilename,true);
 
 
             }
