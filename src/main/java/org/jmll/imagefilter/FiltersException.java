@@ -10,7 +10,6 @@ public class FiltersException extends Exception {
             super(message, t);
         }
 
-
    }
 
 

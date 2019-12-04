@@ -18,12 +18,21 @@ public class Filters {
 
     }*/
 
-    public Mat toBlur(Mat image, int size) {
+    public Mat toBlur(Mat image, int size) throws FiltersException {
 
         // TODO : faire un try catch pour envoyer une exception qd size est pair
 
-        Mat cloneImage = image.clone();
-        opencv_imgproc.GaussianBlur(image, cloneImage, new Size(size, size), 0);
+         try {
+             Mat cloneImage = image.clone();
+
+             if(size%2 != 0)
+             opencv_imgproc.GaussianBlur(image, cloneImage, new Size(size, size), 0);
+         }
+         catch (FiltersException e){ // A MODIFIER
+             throw new FiltersException ("An error occurred : Size value is not valid");
+
+        }
+
 
         return cloneImage;
 
