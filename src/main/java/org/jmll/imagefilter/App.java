@@ -1,11 +1,19 @@
 package org.jmll.imagefilter;
 
+<<<<<<< Updated upstream
+=======
+
+//import javafx.css.FontFace;
+//import javafx.scene.effect.GaussianBlur;
+
+>>>>>>> Stashed changes
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Kernel;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Scalar;
 import org.bytedeco.opencv.opencv_core.Size;
 import org.bytedeco.opencv.opencv_imgproc.CvFont;
+import org.jmll.imagefilter.Filters.Filters;
 import org.opencv.core.Core;
 import org.opencv.imgproc.Imgproc;
 
@@ -18,6 +26,7 @@ import static org.bytedeco.opencv.global.opencv_imgproc.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -67,28 +76,20 @@ public class App {
                 Logger.log(msgAddingFilters);
                 //
 
-                if (image != null) {
-
-                    // Blur
-                    GaussianBlur(image, image, new Size(11, 11), 0);
-
-                    // N&B
-                    cvtColor(image, image, CV_RGB2GRAY);
-
-                    // Dilatation
-                    Mat kernel;
-                    kernel = Mat.ones(40, 35, 2).asMat();
-                    dilate(image, image, kernel);
-
-                    // Add team name (bonus)
-                    // Imgproc.putText(image, "Centeam", new Point(50, 50), CV_FONT_HERSHEY_PLAIN, 3, new Scalar());
-
+                try {
+                    Filters.toGrayScale(image);
+                    Filters.toBlur(image);
+                    Filters.toDilate(image);
+                }
+                catch(FileNotFoundException e){
+                    System.out.println("An error occurred : file not found");
+                    e.printStackTrace();
+                }
+                
                     // Writing the image
                     imwrite("output/"+imageFilename, image);
                     System.out.println("\u001B[32m"+"SUCESS\n"+"\u001B[0m"+
                             "Output image: "+"output/"+imageFilename);
-
-                }
 
 
             }

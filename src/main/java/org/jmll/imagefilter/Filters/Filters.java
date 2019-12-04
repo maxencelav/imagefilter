@@ -43,4 +43,11 @@ public class Filters {
         opencv_imgproc.dilate(image, cloneImage, element);
         return cloneImage;
     }
+
+    // A finir - bonus
+    public Mat toText (Mat image) {
+        // Add team name (bonus)
+        // Imgproc.putText(image, "Centeam", new Point(50, 50), CV_FONT_HERSHEY_PLAIN, 3, new Scalar());
+        return;
+    }
 }
