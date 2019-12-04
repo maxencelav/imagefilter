@@ -63,16 +63,16 @@ public class App {
                 Mat image = imread(f.getAbsolutePath());
                 //
 
-                if (image != null) {
-
-                    // Blur
-                    GaussianBlur(image, image, new Size(11, 11), 0);
-
-                    // N&B
-                    cvtColor(image, image, CV_RGB2GRAY);
-
-                    // Dilatation
-                    Mat kernel;
+                try {
+                    Filters.toGrayScale(image);
+                    Filters.toBlur(image);
+                    Filters.toDilate(image);
+                }
+                catch(FileNotFoundException e){
+                    System.out.println("An error occurred : file not found");
+                    e.printStackTrace();
+                }
+                
                     kernel = Mat.ones(40, 35, 2).asMat();
                     dilate(image, image, kernel);
 
