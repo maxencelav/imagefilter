@@ -78,8 +78,8 @@ public class App {
 
                 try {
                     Filters.toGrayScale(image);
-                    Filters.toBlur(image);
-                    Filters.toDilate(image);
+                    Filters.toBlur(image,5);
+                    Filters.toDilate(image,8);
                 }
                 catch(FileNotFoundException e){
                     System.out.println("An error occurred : file not found");
