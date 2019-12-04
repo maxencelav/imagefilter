@@ -10,11 +10,14 @@ import java.util.Scanner;
 
 public class Logger {
 
-    static void log(String message) {
+    public static void log(String message, boolean consolePrint) {
         try {
             FileWriter myLog = new FileWriter(App.logFilename, true);
             Timestamp ts = new Timestamp(new Date().getTime());
             myLog.write(ts + " | " + message + "\n");
+            if (consolePrint) {
+                System.out.println(message);
+            }
             myLog.close();
         } catch (IOException e) {
             System.out.println("\u001B[31m" + "An error while logging occurred." + "\u001B[0m");
