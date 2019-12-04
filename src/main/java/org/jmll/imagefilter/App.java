@@ -22,10 +22,10 @@ public class App {
 
     // array des extensions supportées
     static final String[] EXTENSIONS = new String[]{
-            "png", "bmp", "jpg", "jpeg" // and other formats you need
+            "png", "bmp", "jpg", "jpeg"
     };
 
-    // filter to identify images based on their extensions
+    // filtre les images selon les extensions
     static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
         @Override
         public boolean accept(final File dir, final String name) {
@@ -41,7 +41,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        if (dir.isDirectory()) { // make sure it's a directory
+        if (dir.isDirectory()) {
             for (final File f : dir.listFiles(IMAGE_FILTER)) {
 
                 BufferedImage img = null;

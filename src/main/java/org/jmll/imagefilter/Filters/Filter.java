@@ -3,14 +3,9 @@ package org.jmll.imagefilter.Filters;
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Size;
 import org.bytedeco.opencv.opencv_core.Mat;
-import org.jmll.imagefilter.FiltersException;
 import org.jmll.imagefilter.Logger;
 import org.opencv.core.CvType;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 :
 
 public class Filter {
@@ -19,10 +14,10 @@ public class Filter {
 
     }*/
 
-    public abstract Mat process (Mat image) throws FiltersException;
+    public abstract Mat process (Mat image) throws FilterException;
     public abstract String getDescription();
 
-    public Mat toBlur(Mat image, int size) throws FiltersException {
+    public Mat toBlur(Mat image, int size) throws FilterException {
 
         // TODO : faire un try catch pour envoyer une exception qd size est pair
 
@@ -33,7 +28,7 @@ public class Filter {
              opencv_imgproc.GaussianBlur(image, cloneImage, new Size(size, size), 0);
          }
          catch (Exception e){ // A MODIFIER
-             throw new FiltersException ("An error occurred : ");
+             throw new FilterException("An error occurred : ");
 
         }
 
