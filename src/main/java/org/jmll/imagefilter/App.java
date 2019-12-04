@@ -1,7 +1,7 @@
 package org.jmll.imagefilter;
 
 import org.bytedeco.opencv.opencv_core.Mat;
-import org.jmll.imagefilter.Filters.Filter;
+import org.jmll.imagefilter.Filters.*;
 
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 
 public class App {
 
@@ -52,25 +53,30 @@ public class App {
                 new Mat();
                 Mat image = imread(f.getAbsolutePath());
 
-                String msgAddingFilters = "Adding filters to: " + f.getAbsolutePath() ;
+                String msgAddingFilters = "Adding filters to: " + f.getAbsolutePath();
                 System.out.print(msgAddingFilters + " => ");
-                Logger.log(msgAddingFilters,false);
+                Logger.log(msgAddingFilters, false);
                 //
 
+
                 try {
-                    Filter.toGrayScale(image);
-                    Filter.toBlur(image,5);
-                    Filter.toDilate(image,8);
-                }
-                catch(FileNotFoundException e){
-                    Logger.log("An error occurred : file not found",true);
+                    ArrayList<Filter> filtersList = new ArrayList<>();
+                    filtersList.add(new GreyFilter());
+                    filtersList.add(new BlurFilter(3));
+                    filtersList.add(new DilateFilter(6));
+                    for (Filter fi : filtersList) {
+                        fi.process(image);
+                    }
+
+                } catch (FilterException e) {
+                    Logger.log("An error occurred : file not found", true);
                     e.printStackTrace();
                 }
-                
-                    // Writing the image
-                    imwrite("output/"+imageFilename, image);
-                    Logger.log("\u001B[32m"+"SUCESS\n"+"\u001B[0m"+
-                            "Output image: "+"output/"+imageFilename,true);
+
+                // Writing the image
+                imwrite("output/" + imageFilename, image);
+                Logger.log("\u001B[32m" + "SUCESS\n" + "\u001B[0m" +
+                        "Output image: " + "output/" + imageFilename, true);
 
 
             }
