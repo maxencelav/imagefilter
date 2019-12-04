@@ -15,7 +15,7 @@ public class BlurFilter extends Filter {
 
     public Mat process(Mat image) throws FilterException {
         // TODO : faire un try catch pour envoyer une exception qd size est pair
-        if (this.size % 2 != 0) {
+        if (this.size % 2 == 0) {
             throw new FilterException("An error occurred : Size not valid");
         }
 

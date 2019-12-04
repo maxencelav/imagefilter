@@ -61,11 +61,13 @@ public class App {
 
                 try {
                     ArrayList<Filter> filtersList = new ArrayList<>();
+
                     filtersList.add(new GreyFilter());
                     filtersList.add(new BlurFilter(3));
                     filtersList.add(new DilateFilter(6));
+
                     for (Filter fi : filtersList) {
-                        fi.process(image);
+                        image = fi.process(image);
                     }
 
                 } catch (FilterException e) {
