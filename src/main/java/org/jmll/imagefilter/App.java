@@ -1,8 +1,5 @@
 package org.jmll.imagefilter;
 
-//import javafx.css.FontFace;
-//import javafx.scene.effect.GaussianBlur;
-
 import org.bytedeco.opencv.global.opencv_imgproc;
 import org.bytedeco.opencv.opencv_core.Kernel;
 import org.bytedeco.opencv.opencv_core.Mat;
@@ -26,6 +23,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class App {
+
+    public static String logFilename = "image.log";
 
     // File est dossier qui contient les images
     static String directoryName = "imgs";
