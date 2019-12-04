@@ -61,6 +61,10 @@ public class App {
                 // Read the image
                 new Mat();
                 Mat image = imread(f.getAbsolutePath());
+
+                String msgAddingFilters = "Adding filters to: " + f.getAbsolutePath() ;
+                System.out.print(msgAddingFilters + " => ");
+                Logger.log(msgAddingFilters);
                 //
 
                 if (image != null) {
@@ -81,7 +85,8 @@ public class App {
 
                     // Writing the image
                     imwrite("output/"+imageFilename, image);
-                    System.out.println("Filter added!");
+                    System.out.println("\u001B[32m"+"SUCESS\n"+"\u001B[0m"+
+                            "Output image: "+"output/"+imageFilename);
 
                 }
 
