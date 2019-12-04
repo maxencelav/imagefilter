@@ -10,9 +10,13 @@ import java.util.Scanner;
 
 public class Logger {
 
+
+
     public static void log(String message, boolean consolePrint) {
         try {
             FileWriter myLog = new FileWriter(App.logFilename, true);
+
+            //FileWriter myLog = new FileWriter("image.log", true);
             Timestamp ts = new Timestamp(new Date().getTime());
             myLog.write(ts + " | " + message + "\n");
             if (consolePrint) {

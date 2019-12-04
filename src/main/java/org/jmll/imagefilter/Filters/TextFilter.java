@@ -25,7 +25,7 @@ public class TextFilter extends Filter {
             e.printStackTrace();
         }
 
-        Logger.log("Adding text filter", true);
+        Logger.log("Adding text filter with text = "+text, true);
         return cloneImage;
     }
 
