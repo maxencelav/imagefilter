@@ -21,5 +21,5 @@ public class TextFilter extends Filter {
         }
         Logger.log("Adding text filter",true);
         return cloneImage;
-    }*/
+    }
 }

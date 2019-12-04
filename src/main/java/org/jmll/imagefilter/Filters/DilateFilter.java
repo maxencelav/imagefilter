@@ -9,10 +9,15 @@ import org.opencv.imgproc.Imgproc;
 public class DilateFilter extends Filter {
 
     public Mat toDilate(Mat image, int size) {
+        return DilateFilter(image, size);
+    }
+
+    static Mat DilateFilter(Mat image, int size) {
         Mat cloneImage = image.clone();
         Mat element = opencv_imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
         opencv_imgproc.dilate(image, cloneImage, element);
         Logger.log("Adding blur filter with size = "+size,true);
+
         return cloneImage;
     }
 }
