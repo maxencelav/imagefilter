@@ -1,4 +1,4 @@
 package org.jmll.imagefilter.Filters;
 
-public class BlurFilter extends Filters {
+public class BlurFilter extends Filter {
 }

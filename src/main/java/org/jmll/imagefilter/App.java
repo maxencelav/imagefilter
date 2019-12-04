@@ -1,29 +1,16 @@
 package org.jmll.imagefilter;
 
-import org.bytedeco.opencv.global.opencv_imgproc;
-import org.bytedeco.opencv.opencv_core.Kernel;
 import org.bytedeco.opencv.opencv_core.Mat;
-import org.bytedeco.opencv.opencv_core.Scalar;
-import org.bytedeco.opencv.opencv_core.Size;
-import org.bytedeco.opencv.opencv_imgproc.CvFont;
-import org.jmll.imagefilter.Filters.Filters;
-import org.opencv.core.Core;
-import org.opencv.imgproc.Imgproc;
-import sun.nio.ch.SimpleAsynchronousFileChannelImpl;
-
-import java.awt.*;
+import org.jmll.imagefilter.Filters.Filter;
 
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
-import static org.bytedeco.opencv.global.opencv_imgproc.*;
 
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class App {
 
@@ -71,9 +58,9 @@ public class App {
                 //
 
                 try {
-                    Filters.toGrayScale(image);
-                    Filters.toBlur(image,5);
-                    Filters.toDilate(image,8);
+                    Filter.toGrayScale(image);
+                    Filter.toBlur(image,5);
+                    Filter.toDilate(image,8);
                 }
                 catch(FileNotFoundException e){
                     Logger.log("An error occurred : file not found",true);

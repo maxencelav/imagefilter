@@ -13,11 +13,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 :
 
-public class Filters {
+public class Filter {
 
     /*public Filters{
 
     }*/
+
+    public abstract Mat process (Mat image) throws FiltersException;
+    public abstract String getDescription();
 
     public Mat toBlur(Mat image, int size) throws FiltersException {
 
@@ -29,8 +32,8 @@ public class Filters {
              if(size%2 != 0)
              opencv_imgproc.GaussianBlur(image, cloneImage, new Size(size, size), 0);
          }
-         catch (FiltersException e){ // A MODIFIER
-             throw new FiltersException ("An error occurred : Size value is not valid");
+         catch (Exception e){ // A MODIFIER
+             throw new FiltersException ("An error occurred : ");
 
         }
 
