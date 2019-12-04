@@ -29,7 +29,11 @@ public class Filters {
 
     }
 
+<<<<<<< Updated upstream
     public Mat toGrayScale(Mat image) {
+=======
+    public Mat toGrayScale(Mat image){
+>>>>>>> Stashed changes
 
         Mat cloneImage = new Mat(image.rows(), image.cols(), CvType.CV_8UC3);
         opencv_imgproc.cvtColor(image, cloneImage, Imgproc.COLOR_RGB2GRAY);
