@@ -9,7 +9,6 @@ import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
@@ -46,7 +45,6 @@ public class App {
             for (final File f : dir.listFiles(IMAGE_FILTER)) {
 
                 BufferedImage img = null;
-
                 String imageFilename = f.getName();
 
                 // Read the image
@@ -58,14 +56,13 @@ public class App {
                 Logger.log(msgAddingFilters, false);
                 //
 
-
                 try {
                     ArrayList<Filter> filtersList = new ArrayList<>();
 
                     filtersList.add(new GreyFilter());
                     filtersList.add(new BlurFilter(3));
                     filtersList.add(new DilateFilter(6));
-                   // filtersList.add(new TextFilter("Centeam"));
+                    filtersList.add(new TextFilter("Centeam"));
 
                     for (Filter fi : filtersList) {
                         image = fi.process(image);
@@ -78,7 +75,7 @@ public class App {
 
                 // Writing the image
                 imwrite("output/" + imageFilename, image);
-                Logger.log("\u001B[32m" + "SUCESS\n" + "\u001B[0m" +
+                Logger.log("\u001B[32m" + "SUCCESS\n" + "\u001B[0m" +
                         "Output image: " + "output/" + imageFilename, true);
 
 
