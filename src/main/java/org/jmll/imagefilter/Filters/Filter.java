@@ -6,7 +6,9 @@ import org.bytedeco.opencv.opencv_core.Mat;
 import org.jmll.imagefilter.Logger;
 import org.opencv.core.CvType;
 import org.opencv.imgproc.Imgproc;
-:
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Filter {
 
