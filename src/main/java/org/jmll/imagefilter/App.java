@@ -1,5 +1,6 @@
 package org.jmll.imagefilter;
 
+import javafx.collections.transformation.FilteredList;
 import org.apache.commons.cli.*;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.ini4j.Wini;
@@ -13,6 +14,7 @@ import java.io.FilenameFilter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
@@ -232,18 +234,18 @@ public class App {
 
             // Story 12 (bonus)
 
-            
+             Reflections reflections = new Reflections("org.jmll.imagefilter");
+             Set<Class<? extends Filter>> filterMenu = reflections.getSubTypesOf(Filter.class);
 
-            Class <App> main = App.class;
-            Class<BlurFilter> blurClassObj = BlurFilter.class;
-            Class<DilateFilter> dilateClassObj = DilateFilter.class;
-            Method[] filterMethod = blurClassObj.getDeclaredMethods();
-            System.out.println("Name of the class : " + blurClassObj.getName());
-            Package pkg = main.getPackage();
-            System.out.println("Package Name = " + pkg.getName());
-            for (Method method : filterMethod) {
-                System.out.println("Name of the method : " + method.getName());
-            }
+            System.out.println("==== FILTER LIST ====");
+             for(Class<? extends Filter> c : filterMenu)      {
+                 System.out.println(c.getSimpleName());
+             }
+
+
+
+
+
 
     }
 
