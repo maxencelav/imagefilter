@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class App {
 
@@ -21,12 +22,8 @@ public class App {
 
     public static void main(String[] args) {
 
-        System.out.print("Current arguments: ");
-        for (int i = 0; i < args.length; i++) {
-            System.out.print(args[i] + " ");
-        }
-
-        System.out.println("\n\n");
+        // print given arguments to console
+        System.out.println("Current arguments: " + Arrays.toString(args));
 
         // create Options object
         Options options = new Options();
@@ -52,33 +49,39 @@ public class App {
         }
 
         //Define the input directory
-        File inputDir = new File(cmd.getOptionValue("i"));
+        App.logFilename = new String(cmd.getOptionValue("lf"));
+        Logger.log("Log file filename: " + App.logFilename, true);
 
         //Define the input directory
-        App.logFilename = new String(cmd.getOptionValue("lf"));
+        File inputDir = new File(cmd.getOptionValue("i"));
+        Logger.log("Input directory: " + inputDir + "/", true);
 
         //Define the output directory
         File outputDir = new File(cmd.getOptionValue("o"));
+        Logger.log("Output directory: " + outputDir + "/", true);
+
+        // basic line print to space out the parameters information and the image treatment prints
+        System.out.println();
+
 
         // parse filters
         String filterArg = cmd.getOptionValue("f"); // grayscale|blur
 
         String[] split = filterArg.split("\\|"); // blur, grayscale
-
         for (String s : split) {
-            switch (s) {
-                case "blur":
-                    //TODO : add size
-                    filtersList.add(new BlurFilter(13));
+            switch (s.charAt(0)) {
+                case 'b': // blur
+                    String[] splitBlur = s.split("\\:"); // split by : to get the argument
+                    filtersList.add(new BlurFilter(Integer.valueOf(splitBlur[1])));
                     break;
-                case "grayscale":
+                case 'g': // grayscale
                     filtersList.add(new GreyFilter());
                     break;
-                case "dilate":
-                    //TODO : add size
-                    filtersList.add(new DilateFilter(3));
+                case 'd': // dilate
+                    String[] splitDilate = s.split("\\:"); // split by : to get the argument
+                    filtersList.add(new DilateFilter(Integer.valueOf(splitDilate[1])));
                     break;
-                case "text":
+                case 't': // text
                     filtersList.add(new TextFilter("TEMP"));
                     break;
                 default:
