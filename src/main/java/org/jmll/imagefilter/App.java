@@ -1,6 +1,5 @@
 package org.jmll.imagefilter;
 
-import javafx.collections.transformation.FilteredList;
 import org.apache.commons.cli.*;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.ini4j.Wini;
@@ -43,9 +42,7 @@ public class App {
         options.addOption(new Option("f", "filters", true, "Image filters"));
         options.addOption(new Option("lf", "log-file", true, "Log file"));
         options.addOption(new Option("cf", "config-file", true, "Config file"));
-
-        // Story 12
-        // options.addOption(new Option("fl", "list-filters", true, "Filters list"))   ;
+        options.addOption(new Option("li", "list-filters", false, "Filters list"))   ;
 
         //Create the list that will contain the applied filters
         ArrayList<Filter> filtersList = new ArrayList<>();
@@ -66,6 +63,23 @@ public class App {
             e.printStackTrace();
         }
 
+        // FILTER LIST
+        if (Arrays.stream(args).anyMatch("-li"::equals)) {
+            try {
+                Reflections reflections = new Reflections("org.jmll.imagefilter");
+                Set<Class<? extends Filter>> filterMenu = reflections.getSubTypesOf(Filter.class);
+
+                System.out.println("==== FILTER LIST ====");
+                for (Class<? extends Filter> c : filterMenu) {
+                    System.out.println(c.getSimpleName());
+                }
+
+                return;
+            } catch (Exception e) {
+                System.out.println("Error while displaying list of filters. Leaving the program");
+                return;
+            }
+        }
 
         // FROM INI FILE
         System.out.println("Reading from the ini file...");
@@ -233,15 +247,15 @@ public class App {
             }
         }
 
-        // Story 12 (bonus)
+        /*// Story 12 (bonus)
 
-             Reflections reflections = new Reflections("org.jmll.imagefilter");
-             Set<Class<? extends Filter>> filterMenu = reflections.getSubTypesOf(Filter.class);
+        Reflections reflections = new Reflections("org.jmll.imagefilter");
+        Set<Class<? extends Filter>> filterMenu = reflections.getSubTypesOf(Filter.class);
 
-            System.out.println("==== FILTER LIST ====");
-             for(Class<? extends Filter> c : filterMenu)      {
-                 System.out.println(c.getSimpleName());
-             }
+        System.out.println("==== FILTER LIST ====");
+        for(Class<? extends Filter> c : filterMenu)      {
+            System.out.println(c.getSimpleName());
+        }*/
 
 
 

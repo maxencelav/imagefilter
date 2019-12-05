@@ -39,7 +39,7 @@ public class TextFilter extends Filter {
                     this.text,                           // Text to be added
                     new Point(10, cloneImage.rows() - 20),         // point
                     CV_FONT_HERSHEY_DUPLEX,              // front face
-                    3.0,                     // front scale
+                    2.0,                     // front scale
                     new Scalar(50)                  // Scalar object for color
             );
         } catch (Exception e) {
