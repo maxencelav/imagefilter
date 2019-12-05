@@ -20,6 +20,7 @@ public class App {
     //Define the log file
     public static String logFilename;
 
+
     public static void main(String[] args) {
 
         // print given arguments to console

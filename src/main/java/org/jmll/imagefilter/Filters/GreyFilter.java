@@ -8,6 +8,13 @@ import org.opencv.imgproc.Imgproc;
 
 public class GreyFilter extends Filter {
 
+    /**
+     * Function which allow to add a grey filter
+     * @param image picture in the folder
+     * @return a clone of the picture with the filter
+     * @throws FilterException if the filter has encountered an exception
+     */
+
     public Mat process(Mat image) throws FilterException {
         Mat cloneImage = new Mat(image.rows(), image.cols(), CvType.CV_8UC3);
 

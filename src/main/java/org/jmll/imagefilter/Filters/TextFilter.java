@@ -13,10 +13,20 @@ public class TextFilter extends Filter {
 
     String text;
 
+    /**
+     * Function which allow to display a text on the picture
+     * @param text : text on the picture
+     */
     public TextFilter(String text) {
         this.text = text;
     }
 
+    /**
+     * Function mat which configure the text's position and the text's font
+     * @param image picture in the folder
+     * @return a clone of the picture with the filter
+     * @throws FilterException if the filter has encountered an exception
+     */
     public Mat process(Mat image) throws FilterException {
         Mat cloneImage = image.clone();
         try {
