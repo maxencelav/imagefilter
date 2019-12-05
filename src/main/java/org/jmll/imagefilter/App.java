@@ -47,6 +47,7 @@ public class App {
         //Create the list that will contain the applied filters
         ArrayList<Filter> filtersList = new ArrayList<>();
 
+
         //Create the default values for the arguments
         File inputDir = new File("imgs");
         App.logFilename = "image.log";
@@ -62,6 +63,16 @@ public class App {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        //HELP
+        if (Arrays.stream(args).anyMatch("-h"::equals)) {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("CommandLineParameters", options);
+            return;
+        }
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("CommandLineParameters", options);
+
 
         // FILTER LIST
         if (Arrays.stream(args).anyMatch("-li"::equals)) {
