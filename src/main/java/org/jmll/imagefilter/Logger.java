@@ -11,7 +11,11 @@ import java.util.Scanner;
 public class Logger {
 
 
-
+    /**
+     * Function which allow to print the message in a log or/and the terminal
+     * @param message : logged message
+     * @param consolePrint : printed to the terminal if true
+     */
     public static void log(String message, boolean consolePrint) {
         try {
             FileWriter myLog = new FileWriter(App.logFilename, true);
