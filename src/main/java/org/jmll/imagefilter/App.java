@@ -5,6 +5,7 @@ import org.bytedeco.opencv.opencv_core.Mat;
 import org.ini4j.Wini;
 import org.jmll.imagefilter.Filters.*;
 import org.reflections.Reflections;
+import sun.rmi.runtime.Log;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -39,14 +40,13 @@ public class App {
         options.addOption(new Option("h", "help", false, "Help"));
         options.addOption(new Option("i", "input", true, "Input directory"));
         options.addOption(new Option("o", "output", true, "Output directory"));
-        options.addOption(new Option("f", "filters", true, "Image filters"));
+        options.addOption(new Option("f", "filters", true, "Filters"));
         options.addOption(new Option("lf", "log-file", true, "Log file"));
         options.addOption(new Option("cf", "config-file", true, "Config file"));
-        options.addOption(new Option("li", "list-filters", false, "Filters list"))   ;
+        options.addOption(new Option("li", "list-filters", false, "List of available filters"));
 
         //Create the list that will contain the applied filters
         ArrayList<Filter> filtersList = new ArrayList<>();
-
 
         //Create the default values for the arguments
         File inputDir = new File("imgs");
@@ -61,11 +61,12 @@ public class App {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println("Couldn't parse the arguments.");
         }
 
         //HELP
-        if (Arrays.stream(args).anyMatch("-h"::equals)) {
+        if (Arrays.stream(args).anyMatch("-h"::equals) || Arrays.stream(args).anyMatch("--help"::equals)) {
+            // if there is one argument that is -h or --help ...
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("CommandLineParameters", options);
             return;
@@ -75,7 +76,7 @@ public class App {
 
 
         // FILTER LIST
-        if (Arrays.stream(args).anyMatch("-li"::equals)) {
+        if (Arrays.stream(args).anyMatch("-li"::equals) || Arrays.stream(args).anyMatch("--list-filters"::equals)) {
             try {
                 Reflections reflections = new Reflections("org.jmll.imagefilter");
                 Set<Class<? extends Filter>> filterMenu = reflections.getSubTypesOf(Filter.class);
@@ -105,8 +106,7 @@ public class App {
                 App.logFilename = new String(ini.get("general", "logFile"));
                 Logger.log("Log file filename: " + App.logFilename, true);
             } catch (NullPointerException e) {
-                System.out.println("Log file filename not found. Proceeding with default name: image.log");
-                e.printStackTrace();
+                System.out.println("Log file filename not found. Proceeding with: " + logFilename);
             }
 
             //Define the input directory
@@ -114,8 +114,7 @@ public class App {
                 inputDir = new File(ini.get("general", "inputDir"));
                 Logger.log("Input directory: " + inputDir + "/", true);
             } catch (NullPointerException e) {
-                System.out.println("Input directory not found. Proceeding with default name: imgs/");
-                e.printStackTrace();
+                System.out.println("Input directory not found. Proceeding with: " + inputDir);
             }
 
             //Define the output directory
@@ -124,8 +123,7 @@ public class App {
                 Logger.log("Output directory: " + outputDir + "/", true);
 
             } catch (NullPointerException e) {
-                System.out.println("Output directory not found. Proceeding with default name: output/");
-                e.printStackTrace();
+                System.out.println("Output directory not found. Proceeding with: " + outputDir);
             }
 
             //Define the filters
@@ -135,7 +133,6 @@ public class App {
 
             } catch (NullPointerException e) {
                 System.out.println("Filters not found.");
-                e.printStackTrace();
             }
 
         } catch (NullPointerException e) {
@@ -155,7 +152,7 @@ public class App {
             App.logFilename = new String(cmd.getOptionValue("lf"));
             Logger.log("Log file file name: " + App.logFilename, true);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Log file filename not found. Proceeding with: " + logFilename);
         }
 
         //Define the input directory
@@ -187,8 +184,8 @@ public class App {
 
         // parse filters
         String filterArg = filters;
-
         String[] split = filterArg.split("\\|");
+
         for (String s : split) {
             switch (s.charAt(0)) {
                 case 'b': // blur
@@ -267,10 +264,6 @@ public class App {
         for(Class<? extends Filter> c : filterMenu)      {
             System.out.println(c.getSimpleName());
         }*/
-
-
-
-
 
 
     }
