@@ -12,6 +12,7 @@ public class DilateFilter extends Filter {
 
     /**
      * Function which allow to dilate the picture
+     *
      * @param size : size of the picture, can't be pair
      */
     public DilateFilter(int size) {
@@ -19,7 +20,6 @@ public class DilateFilter extends Filter {
     }
 
     /**
-     *
      * @param image : picture in the folder
      * @return a clone of the picture with the filter
      * @throws FilterException if the size is pair, throw the exception
@@ -27,11 +27,11 @@ public class DilateFilter extends Filter {
     @Override
     public Mat process(Mat image) throws FilterException {
         Mat cloneImage = image.clone();
-        try{
-        Mat element = opencv_imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
-        opencv_imgproc.dilate(image, cloneImage, element);
-        Logger.log("Adding dilate filter with size = " + size, true);}
-        catch (Exception e){
+        try {
+            Mat element = opencv_imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * size + 1, 2 * size + 1));
+            opencv_imgproc.dilate(image, cloneImage, element);
+            Logger.log("Adding dilate filter with size = " + size, true);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

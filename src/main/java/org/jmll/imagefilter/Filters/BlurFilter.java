@@ -12,6 +12,7 @@ public class BlurFilter extends Filter {
 
     /**
      * Function which allow to blur the picture
+     *
      * @param size : size of the picture, can't be pair
      */
     public BlurFilter(int size) {
@@ -19,7 +20,6 @@ public class BlurFilter extends Filter {
     }
 
     /**
-     *
      * @param image : picture in the folder
      * @return a clone of the picture with the filter
      * @throws FilterException if size is pair throw the exception
