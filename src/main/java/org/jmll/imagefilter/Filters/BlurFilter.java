@@ -5,16 +5,28 @@ import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Size;
 import org.jmll.imagefilter.Logger;
 
+
 public class BlurFilter extends Filter {
 
     int size;
 
+    /**
+     * Function which allow to blur the picture
+     * @param size : size of the picture, can't be pair
+     */
     public BlurFilter(int size) {
         this.size = size;
     }
 
+    /**
+     *
+     * @param image : picture in the folder
+     * @return a clone of the picture with the filter
+     * @throws FilterException if size is pair throw the exception
+     */
     public Mat process(Mat image) throws FilterException {
-        // TODO : faire un try catch pour envoyer une exception qd size est pair
+
+        // check if the size is pair or not
         if (this.size % 2 == 0) {
             throw new FilterException("An error occurred : Size not valid");
         }

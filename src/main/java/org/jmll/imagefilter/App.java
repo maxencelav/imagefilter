@@ -19,6 +19,7 @@ public class App {
     //Define the log file
     public static String logFilename;
 
+
     public static void main(String[] args) {
 
         System.out.print("Current arguments: ");
