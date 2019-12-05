@@ -60,9 +60,9 @@ public class App {
         File outputDir = new File(cmd.getOptionValue("o"));
         Logger.log("Output directory: " + outputDir + "/", true);
 
+
         // basic line print to space out the parameters information and the image treatment prints
         System.out.println();
-
 
         // parse filters
         String filterArg = cmd.getOptionValue("f"); // grayscale|blur
