@@ -10,6 +10,7 @@ public class GreyFilter extends Filter {
 
     /**
      * Function which allow to add a grey filter
+     *
      * @param image picture in the folder
      * @return a clone of the picture with the filter
      * @throws FilterException if the filter has encountered an exception
@@ -20,7 +21,7 @@ public class GreyFilter extends Filter {
 
         try {
             opencv_imgproc.cvtColor(image, cloneImage, Imgproc.COLOR_RGB2GRAY);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Logger.log("Adding grayscale filter", true);

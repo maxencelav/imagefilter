@@ -43,7 +43,7 @@ public class App {
         options.addOption(new Option("cf", "config-file", true, "Config file"));
 
         // Story 12
-       // options.addOption(new Option("fl", "list-filters", true, "Filters list"))   ;
+        // options.addOption(new Option("fl", "list-filters", true, "Filters list"))   ;
 
         //Create the list that will contain the applied filters
         ArrayList<Filter> filtersList = new ArrayList<>();
@@ -159,9 +159,9 @@ public class App {
         System.out.println();
 
         // parse filters
-        String filterArg = filters; // grayscale|blur
+        String filterArg = filters;
 
-        String[] split = filterArg.split("\\|"); // blur, grayscale
+        String[] split = filterArg.split("\\|");
         for (String s : split) {
             switch (s.charAt(0)) {
                 case 'b': // blur
@@ -176,7 +176,8 @@ public class App {
                     filtersList.add(new DilateFilter(Integer.valueOf(splitDilate[1])));
                     break;
                 case 't': // text
-                    filtersList.add(new TextFilter("TEMP"));
+                    String[] textDilate = s.split("\\:"); // split by : to get the argument
+                    filtersList.add(new TextFilter(String.valueOf(textDilate[1])));
                     break;
                 default:
                     System.out.println(s + " is not a valid filter");
@@ -230,20 +231,19 @@ public class App {
             }
         }
 
-            // Story 12 (bonus)
+        // Story 12 (bonus)
 
-            
 
-            Class <App> main = App.class;
-            Class<BlurFilter> blurClassObj = BlurFilter.class;
-            Class<DilateFilter> dilateClassObj = DilateFilter.class;
-            Method[] filterMethod = blurClassObj.getDeclaredMethods();
-            System.out.println("Name of the class : " + blurClassObj.getName());
-            Package pkg = main.getPackage();
-            System.out.println("Package Name = " + pkg.getName());
-            for (Method method : filterMethod) {
-                System.out.println("Name of the method : " + method.getName());
-            }
+        Class<App> main = App.class;
+        Class<BlurFilter> blurClassObj = BlurFilter.class;
+        Class<DilateFilter> dilateClassObj = DilateFilter.class;
+        Method[] filterMethod = blurClassObj.getDeclaredMethods();
+        System.out.println("Name of the class : " + blurClassObj.getName());
+        Package pkg = main.getPackage();
+        System.out.println("Package Name = " + pkg.getName());
+        for (Method method : filterMethod) {
+            System.out.println("Name of the method : " + method.getName());
+        }
 
     }
 
