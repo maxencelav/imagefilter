@@ -4,15 +4,19 @@ import org.apache.commons.cli.*;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.ini4j.Wini;
 import org.jmll.imagefilter.Filters.*;
+import org.reflections.Reflections;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.FilenameFilter;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
+
 
 public class App {
 
@@ -37,6 +41,9 @@ public class App {
         options.addOption(new Option("f", "filters", true, "Image filters"));
         options.addOption(new Option("lf", "log-file", true, "Log file"));
         options.addOption(new Option("cf", "config-file", true, "Config file"));
+
+        // Story 12
+       // options.addOption(new Option("fl", "list-filters", true, "Filters list"))   ;
 
         //Create the list that will contain the applied filters
         ArrayList<Filter> filtersList = new ArrayList<>();
@@ -223,6 +230,20 @@ public class App {
             }
         }
 
+            // Story 12 (bonus)
+
+            
+
+            Class <App> main = App.class;
+            Class<BlurFilter> blurClassObj = BlurFilter.class;
+            Class<DilateFilter> dilateClassObj = DilateFilter.class;
+            Method[] filterMethod = blurClassObj.getDeclaredMethods();
+            System.out.println("Name of the class : " + blurClassObj.getName());
+            Package pkg = main.getPackage();
+            System.out.println("Package Name = " + pkg.getName());
+            for (Method method : filterMethod) {
+                System.out.println("Name of the method : " + method.getName());
+            }
 
     }
 
